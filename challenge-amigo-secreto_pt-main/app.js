@@ -1,22 +1,20 @@
-let friendsList = [];
-let contadoresAmigos = {};
-let sorteioRealizado = false;
+const friendsList = [];
+const availableFriends = []; 
 
-let list = document.getElementById("listaAmigos");
-let inputNomeInserido = document.getElementById("amigo");
-let result = document.getElementById("resultado");
-let resetButton = document.getElementById("reset");
-let listAccountants = document.getElementById("contadores");
-let adicionarButton = document.getElementById('adicionar');
-let sortearButton = document.getElementById('sortear');
+const list = document.getElementById("listaAmigos");
+const inputDrawnName = document.getElementById("amigo");
+const result = document.getElementById("resultado");
+const resetButton = document.getElementById("reset");
+const listAccountants = document.getElementById("contadores");
+let addButton = document.getElementById("adicionar");
+const drawnButton = document.getElementById("sortear");
 
-inputNomeInserido.addEventListener("keydown", (event) => {
+inputDrawnName.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
+    event.preventDefault();
     addFriend();
   }
 });
-
-adicionarButton.addEventListener("click", addFriend);
 
 function toggleButton(button, enable) {
     if (enable) {
@@ -24,10 +22,10 @@ function toggleButton(button, enable) {
     } else {
       button.setAttribute('disabled', 'true');
     }
-  }
+}
 
 function addFriend() {
-  let nameFriend = inputNomeInserido.value.trim();
+  let nameFriend = inputDrawnName.value.trim();
   if (nameFriend === "") {
     alert("Informe o nome do amigo.");
     return;
@@ -35,89 +33,57 @@ function addFriend() {
 
   let nameLower = nameFriend.toLowerCase();
 
-  if ( friendsList.some((amigo) => amigo.toLowerCase() === nameLower)) {
+  if (friendsList.some((amigo) => amigo.toLowerCase() === nameLower)) {
     alert("Amigo já adicionado.");
     return;
   }
 
-   friendsList.push(nameFriend);
-  atualizarLista();
-  inputNomeInserido.value = "";
+  friendsList.push(nameFriend);
+  availableFriends.push(nameFriend); 
+  updateList();
+  inputDrawnName.value = "";
+  inputDrawnName.focus();
 
-  toggleButton(resetButton, true);;
+  toggleButton(resetButton, true);
 }
 
-function atualizarLista() {
+function updateList() {
   list.innerHTML = "";
 
-   friendsList.forEach((amigo) => {
+  friendsList.forEach((amigo) => {
     let item = document.createElement("li");
     item.textContent = amigo;
     list.appendChild(item);
   });
 
-  atualizarContadores();
 }
 
-function atualizarContadores() {
-  listAccountants.innerHTML = "";
-
-  for (const amigo in contadoresAmigos) {
-    let contadorItem = document.createElement("li");
-    contadorItem.textContent = `${amigo}: ${contadoresAmigos[amigo]} sorteio(s)`;
-    listAccountants.appendChild(contadorItem);
-  }
-}
-
-function sortearAmigo() {
-    if (sorteioRealizado) {
-        alert("O sorteio já foi realizado. Clique em 'Novo Jogo' para começar novamente.");
-        return;
-      }
-
-  if ( friendsList.length === 0) {
-    alert("Adicione pelo menos um amigo para sortear.");
+function drawnFriend() {
+  if (availableFriends.length === 0) {
+    alert("Todos os amigos já foram sorteados. Clique em 'Novo Jogo' para recomeçar.");
     return;
   }
-  let amigoSorteado =
-     friendsList[Math.floor(Math.random() *  friendsList.length)];
 
-  result.innerHTML = `<li> O amigo sorteado é: <strong>${amigoSorteado}</strong></li>`;
+  let randomIndex = Math.floor(Math.random() * availableFriends.length);
+  let raffleFriend = availableFriends.splice(randomIndex, 1)[0]; 
 
-  if (contadoresAmigos[amigoSorteado]) {
-    contadoresAmigos[amigoSorteado]++;
-  } else {
-    contadoresAmigos[amigoSorteado] = 1;
+  result.innerHTML = `<li> Seu amigo secreto é: <strong>${raffleFriend}</strong></li>`;
+
+  if (availableFriends.length === 0) {
+    toggleButton(drawnButton, false); 
   }
-
-  atualizarContadores();
-
-  sorteioRealizado = true;
-  toggleButton(adicionarButton, false);
-  toggleButton(sortearButton, false);
-  
-}
-
-function limparLista() {
-  friendsList.length = 0;
-  atualizarLista();
-  result.innerHTML = "";
-
-  toggleButton(resetButton, false);
-  sorteioRealizado = false;
 }
 
 function resetGame() {
   friendsList.length = 0;
-  atualizarLista();
+  availableFriends.length = 0;
+  
+  updateList();
   result.innerHTML = "";
-  inputNomeInserido.value = "";
-  contadoresAmigos = {};
-  atualizarContadores();
+  inputDrawnName.value = "";
 
-  toggleButton(adicionarButton, true);
-  toggleButton(sortearButton, true);
+  toggleButton(drawnButton, true);
   toggleButton(resetButton, false);
-
-  sorteioRealizado = false;
 }
+
+updateList();
