@@ -1,6 +1,6 @@
 🎲 Projeto: Sorteio de Amigos
 
-Este projeto é um sistema simples para adicionar amigos a uma lista e sortear aleatoriamente um nome. Ele inclui validações para evitar entradas vazias e duplicadas, além de um controle de contadores para acompanhar quantas vezes cada amigo foi sorteado.
+Este projeto é um sistema simples para adicionar amigos a uma lista e sortear aleatoriamente um nome. Ele inclui validações para evitar entradas vazias e duplicadas.
 
 📌 Funcionalidades
 
@@ -59,3 +59,6 @@ Todos os amigos já foram sorteados
 Problema: Se não houver mais nomes disponíveis para sorteio, um alerta será exibido.
 
 Solução: Clique em "Novo Jogo" para resetar a lista.
+
+
+Nota adicional: Coloquei os nomes em inglês para praticar e me acostumar com a forma de codar em inglês para o mercado de trabalho.
