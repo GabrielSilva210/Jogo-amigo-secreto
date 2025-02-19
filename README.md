@@ -1,4 +1,4 @@
-🎲 Projeto: Sorteio de Amigos
+🎲 Projeto: Amigo Secreto
 
 Este projeto é um sistema simples para adicionar amigos a uma lista e sortear aleatoriamente um nome. Ele inclui validações para evitar entradas vazias e duplicadas.
 
@@ -25,7 +25,7 @@ Clone o repositório:
 bash
 Copy
 Edit
-git clone https://github.com/seu-usuario/sorteio-amigos.git
+git clone https://github.com/GabrielSilva210/Jogo-amigo-secreto.git
 Acesse a pasta do projeto:
 
 bash
