@@ -136,7 +136,7 @@ ul {
 
 .result-list {
     margin-top: 15px;
-    color: #05DF05;
+    color: #07f827;
     font-size: 22px;
     font-weight: bold;
     text-align: center;
@@ -151,6 +151,10 @@ ul {
     color: var(--color-white);
     background-color: var(--color-button);
     font-size: 16px;
+}
+
+.container__botao {
+    margin-left: 20px;
 }
 
 .button-draw img {
